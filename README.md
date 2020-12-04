@@ -1,4 +1,5 @@
 # Example report with HTML and chartjs
 
-To view this example, download the files, extract them and open the file 'report.html' in a browser. You shouldn't need the file 'README.md' or '.gitattributes'.
- 
+To view this example, go to https://daikman.github.io/html_chartjs_report/. OR:
+download the files, extract them and open the file 'index.html' in a browser.
+You shouldn't actually need the files 'README.md' or '.gitattributes'.
