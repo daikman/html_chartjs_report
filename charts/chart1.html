@@ -1,0 +1,40 @@
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<div>
+  <canvas id="chart1"></canvas>
+  <script type="text/javascript">
+    var years = [];
+    for (var i = 1990; i <= 2017; i++) {
+      years.push(i);
+    }
+
+    var all_subs = [2914, 3060, 3318, 3519, 3753, 4066, 4385, 4927, 5557, 6471,
+    7634, 8718, 9728, 10821, 12241, 13648, 15416, 17644, 19475, 21329, 22734,
+    23230, 24743, 25002, 25373, 25663, 24863, 21730]
+
+    var ctx = document.getElementById('chart1').getContext('2d');
+    var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'line',
+
+    // The data for our dataset
+    data: {
+        labels: years,
+        datasets: [{
+            label: 'Phone subscriptions',
+            borderColor: 'rgb(255, 99, 132, 0.5)',
+            pointBackgroundColor: 'rgb(255, 99, 132)',
+            fill: false,
+            data: all_subs
+        }]
+    },
+
+    // Configuration options go here
+    options: {legend: {
+            display: false,
+            },
+        tooltips: {
+          displayColors: false
+        }}
+    });
+  </script>
+</div>

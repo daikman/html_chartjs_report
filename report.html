@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <meta charset="utf-8">
+    <title>Report Example!</title>
+    <link rel="stylesheet" type="text/css" href="style/styles.css">
+  </head>
+
+  <body>
+    <div class="content">
+      <h1>An Example Report using HTML</h1>
+      <p>
+        Here is where the introduction text would go. I'm just going to pretend
+        this report is about phone usage throughout time (I'll use data from
+        <a href = "https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-11-10/readme.md"
+        target = "_blank">
+        TidyTuesday</a>).
+      </p>
+      <p>
+        Making this kind of report requires some knowledge of HTML. But writing
+        the actually text content isn't too different from a standard word
+        processor. Making visualisations using chartjs (as I have done below) is
+        quite simple, actually, but there are other options. We could pretty
+        much make visualisations in any way we want and just stick them in this
+        HTML file. Using javascript would be best, though, as that allows for
+        easy interactivity. For example, you can hover your mouse over the data
+        in any plot below, and you'll get extra information. Additionally, the
+        third plot in this example report can be changed using a slider.
+      </p>
+      <p>
+        Ideally, because it is written in HTML, a report like this would be
+        easily incorporated into an Emerald Works web page for people to view.
+      </p>
+      <h2>Worldwide phone subscriptions since 1990</h2>
+      <!-- <iframe src="charts/chart1.html" width = 95% height = 360px
+      style="border-style: none;"></iframe> -->
+      <canvas id="chart1"></canvas>
+      <p>
+        Here you can see that phone subscriptions have been increasing since
+        1990. But there is more to the story. What happens when we look at
+        mobile phone and landline subscriptions separately?
+      </p>
+      <h2>Mobile vs landline subscriptions</h2>
+      <canvas id="chart2"></canvas>
+      <p>
+        We can see now that overall phone subscriptions have only been increasing
+        since 1990 because mobile phone subscriptions have been increasing.
+        Landline subscriptions have been relatively stable since 1990.
+      </p>
+      <p>
+        This data comes from all over the world, so let's take a look at some
+        geographical data.
+      </p>
+      <h2>Mobile subscriptions over time for 15 random countries</h2>
+      <canvas id="chart3"></canvas>
+      <input type="range" id="year" name="volume"
+             min="1990" max="2017" step = 9 value = 1990>
+      <div style = "display: inline-block;">
+        <p>Year: <span id="year_display"></span></p>
+      </div>
+      <p>
+        Use the slider to see how the mobile subscriptions (per 100 people) in each of these
+        randomly selected countries changed over the years. I know this is kind
+        of a weird idea for a graph, I just wanted to show what a bar charts
+        might look like in this type of report, and that visualisations could be
+        interactive.
+      </p>
+      <h2>Summary</h2>
+      <p>
+        Now, here comes the summary, intelligently synthesising all the
+        information above, presenting innovative actionable insights.
+      </p>
+      <p>
+        Also, here are the pros and cons of using this method to make research
+        reports:
+      </p>
+      <h3>Pros:</h3>
+      <ul>
+        <li>Great for interactivity</li>
+        <li>Easy to distribute on the web</li>
+      </ul>
+      <h3>Cons:</h3>
+      <ul>
+        <li>Challenges getting content written in Word (for example) into the correct format in HTML</li>
+        <li>Not great for large data files</li>
+      </ul>
+    </div>
+
+    <!-- VISUALISATION CODE -->
+    <!-- Chart 1 - simple line -->
+    <script type="text/javascript">
+      var years = [];
+      for (var i = 1990; i <= 2017; i++) {
+        years.push(i);
+      }
+
+      var all_subs = [2914, 3060, 3318, 3519, 3753, 4066, 4385, 4927, 5557, 6471,
+      7634, 8718, 9728, 10821, 12241, 13648, 15416, 17644, 19475, 21329, 22734,
+      23230, 24743, 25002, 25373, 25663, 24863, 21730]
+
+      var ctx = document.getElementById('chart1').getContext('2d');
+      var chart = new Chart(ctx, {
+      // The type of chart we want to create
+      type: 'line',
+
+      // The data for our dataset
+      data: {
+          labels: years,
+          datasets: [{
+              label: 'Phone subscriptions',
+              borderColor: 'rgb(255, 99, 132, 0.5)',
+              pointBackgroundColor: 'rgb(255, 99, 132)',
+              fill: false,
+              data: all_subs
+          }]
+      },
+
+      // Configuration options go here
+      options: {legend: {
+              display: false,
+              },
+          tooltips: {
+            displayColors: false
+          }}
+      });
+    </script>
+
+    <!-- Chart 2 - more complex line graph -->
+    <script type="text/javascript">
+      var years = [];
+      for (var i = 1990; i <= 2017; i++) {
+        years.push(i);
+      }
+
+      var landline_subs = [2860, 2981, 3205, 3357, 3497, 3652, 3762, 3995, 4135,
+      4272, 4390, 4428, 4474, 4461, 4496, 4475, 4456, 4431, 4446, 4534, 4445,
+      4073, 4233, 4146, 4051, 3871, 3533, 3070]
+
+      var mobile_subs = [54, 79, 112, 162, 256, 414, 623, 932, 1422, 2199, 3244,
+      4290, 5254, 6360, 7746, 9173, 10960, 13213, 15029, 16794, 18290, 19157,
+      20510, 20856, 21321, 21792, 21330, 18660]
+
+      var ctx = document.getElementById('chart2').getContext('2d');
+      var chart2 = new Chart(ctx, {
+      // The type of chart we want to create
+      type: 'line',
+
+      // The data for our dataset
+      data: {
+          labels: years,
+          datasets: [{
+              label: 'Landline subscriptions',
+              borderColor: 'rgb(255, 99, 132, 0.5)',
+              backgroundColor: 'rgb(255, 99, 132, 0.9)',
+              pointBackgroundColor: 'rgb(255, 99, 132)',
+              fill: false,
+              data: landline_subs
+          },
+          {
+            label: "Mobile subscriptions",
+            borderColor: 'rgb(0, 99, 132, 0.5)',
+            backgroundColor: 'rgb(0, 99, 132, 0.9)',
+            pointBackgroundColor: 'rgb(0, 99, 132)',
+            fill: false,
+            data: mobile_subs,
+          }]
+      },
+
+      // Configuration options go here
+      options: {
+        legend: {
+
+            }
+      }
+      });
+
+    </script>
+
+    <!-- Chart 3 - bar graph -->
+    <script type="text/javascript">
+
+      var years = [1990, 1999, 2008, 2017];
+
+      var countries = ["Algeria", "Papua NG", "Oman", "B and H",
+      "Cuba", "SVG", "Finland", "Angola", "Latvia",
+      "Hungary", "Guyana", "Saint Lucia", "Jersey", "South Sudan", "Hong Kong"];
+
+      var mobile_subs = [
+      [0, 0, 0, 0, 5, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2], // 1990
+      [0, 0, 1, 0, 63, 0, 65, 16, 0, 11, 5, 0, 1, 1, 65], // 1999
+      [78, 31, 84, 3, 128, 60, 167, 122, 0, 106, 117, 13, 103, 119, 167], // 2008
+      [121, 45, 98, 40, 132, 83, 249, 124, 126, 150, 0, 99, 106, 12, 249] //2017
+      ]
+
+      var ctx = document.getElementById('chart3').getContext('2d');
+      var chart3 = new Chart(ctx, {
+      // The type of chart we want to create
+      type: 'bar',
+
+      // The data for our dataset
+      data: {
+          labels: countries,
+          datasets: [{
+              label: 'Mobile phone subscriptions',
+              data: mobile_subs[0],
+              backgroundColor: 'rgb(255, 0, 0, 0.3)',
+              hoverBackgroundColor: 'rgb(255, 0, 0, 0.6)'
+          }]
+      },
+
+      // Configuration options go here
+      options: {
+        legend: {
+          display: false
+        },
+        tooltips: {
+          position: 'average',
+          caretSize: 0,
+          caretPadding: 20,
+          displayColors: false
+        },
+        scales: {
+            yAxes: [{
+                display: true,
+                ticks: {
+                    beginAtZero: true   // minimum value will be 0.
+                }
+            }]
+        }}
+      });
+    </script>
+
+    <!-- Chart 3 interaction -->
+    <script type="text/javascript">
+    var slider = document.getElementById("year");
+    var output = document.getElementById("year_display");
+    var index = 0;
+    output.innerHTML = slider.value;
+
+    slider.oninput = function() {
+      output.innerHTML = this.value;
+      index = years.indexOf(parseInt(this.value));
+
+      chart3.data.datasets[0].data = mobile_subs[index];
+      chart3.update();
+    }
+    </script>
+  </body>
+</html>
