@@ -1,15 +1,12 @@
-@font-face {
-  font-family: fontHeadings;
-  src: url(Matter-Bold.otf);
+chart-wrapper {
+  display: grid;
+  /* height: 100vh; */
+  position: fixed;
 }
 
-@font-face {
-  font-family: fontNormal;
-  src: url(Matter-Regular.otf);
-}
-
-h1, h2, h3, h4 {
-  font-family: fontHeadings;
+.chart-wrapper canvas {
+  position: absolute;
+  transition: opacity 2s;
 }
 
 h1 {
@@ -26,7 +23,6 @@ h3 {
 }
 
 p, ul, ol {
-  font-family: fontNormal;
   font-size: 1.2em;
 }
 
